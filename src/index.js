@@ -8,8 +8,8 @@ const install = (hook, vm) => {
 		const themes = vm.config?.shiki?.themes ?? [];
 		const langs = vm.config?.shiki?.langs ?? [];
 		const shiki = createHighlighterCoreSync({
-			themes,
-			langs,
+			themes: [],
+			langs: [],
 			engine: createJavaScriptRegexEngine(),
 		});
 
@@ -25,6 +25,8 @@ const install = (hook, vm) => {
 		const shikiRenderer = (code, lang) => {
 			try {
 				const language = shiki.getLanguage(lang);
+				const name = language?.name ?? lang;
+				const displayName = language?._grammar.displayName ?? lang;
 
 				return shiki.codeToHtml(code, {
 					lang,
@@ -32,14 +34,10 @@ const install = (hook, vm) => {
 					transformers: [
 						{
 							code(node) {
-								this.addClassToHast(
-									node,
-									`lang-${language?._grammar.name ?? lang}`,
-								);
+								this.addClassToHast(node, `lang-${name}`);
 							},
 							pre(node) {
-								node.properties["data-lang"] =
-									language?._grammar.displayName ?? lang;
+								node.properties["data-lang"] = displayName;
 							},
 						},
 					],
@@ -47,21 +45,38 @@ const install = (hook, vm) => {
 			} catch (err) {
 				console.warn("[shiki]", err);
 
-				// 言語が見つからない場合はハイライトなしで描画する
-				return shiki.codeToHtml(code, {
-					lang: "text",
-					theme,
-					transformers: [
-						{
-							code(node) {
-								this.addClassToHast(node, "lang-text");
+				try {
+					// 言語が見つからない場合はハイライトなしで描画する
+					return shiki.codeToHtml(code, {
+						lang: "text",
+						theme,
+						transformers: [
+							{
+								code(node) {
+									this.addClassToHast(node, `lang-$${lang}`);
+								},
+								pre(node) {
+									node.properties["data-lang"] = lang;
+								},
 							},
-							pre(node) {
-								node.properties["data-lang"] = "Plain Text";
-							},
-						},
-					],
-				});
+						],
+					});
+				} catch (err) {
+					console.warn("[shiki]", err);
+
+					// さらにエラーになった場合はそのまま描画する
+					const $pre = document.createElement("pre");
+					const $code = document.createElement("code");
+
+					$pre.dataset.lang = lang;
+					$code.classList.add(`lang-${lang}`);
+
+					$code.textContent = code;
+
+					$pre.appendChild($code);
+
+					return $pre.outerHTML;
+				}
 			}
 		};
 
