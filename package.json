@@ -1,10 +1,10 @@
 {
-	"name": "{{PACKAGE_NAME}}",
+	"name": "docsify-shiki",
 	"description": "",
 	"keywords": ["docsify"],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/simochee/{{PACKAGE_NAME}}.git"
+		"url": "git+https://github.com/simochee/docsify-shiki.git"
 	},
 	"license": "MIT",
 	"author": {
@@ -13,7 +13,7 @@
 		"url": "https://simochee.net"
 	},
 	"type": "module",
-	"main": "lib/{{PACKAGE_NAME}}.js",
+	"main": "lib/docsify-shiki.js",
 	"files": ["lib"],
 	"scripts": {
 		"build": "rollup -c",

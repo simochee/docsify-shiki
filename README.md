@@ -1,16 +1,13 @@
-> [!IMPORTANT]
-> First, replace some placeholder `{{PACKAGE_NAME}}` with your package name.
-
 <p align="center">
   <img src="docsify.svg" alt="Docsify Logo" height="128">
 </p>
 <h1 align="center">Docsify Plugins</h1>
-<h3 align="center">{{PACKAGE_NAME}}</h3>
+<h3 align="center">Shiki</h3>
 <p align="center">by <a href="https://github.com/simochee">simochee</a></p>
 
-[![jsDelivr](https://data.jsdelivr.com/v1/package/npm/{{PACKAGE_NAME}}/badge)](https://www.jsdelivr.com/package/npm/{{PACKAGE_NAME}})
-[![npm version](https://badge.fury.io/js/{{PACKAGE_NAME}}.svg)](https://badge.fury.io/js/{{PACKAGE_NAME}})
-[![License](https://img.shields.io/npm/l/{{PACKAGE_NAME}})](https://github.com/simochee/{{PACKAGE_NAME}}/blob/main/LICENSE)
+[![jsDelivr](https://data.jsdelivr.com/v1/package/npm/docsify-shiki/badge)](https://www.jsdelivr.com/package/npm/docsify-shiki)
+[![npm version](https://badge.fury.io/js/docsify-shiki.svg)](https://badge.fury.io/js/docsify-shiki)
+[![License](https://img.shields.io/npm/l/docsify-shiki)](https://github.com/simochee/docsify-shiki/blob/main/LICENSE)
 
 about this plugin...
 
@@ -23,7 +20,7 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
   window.$docsify = {};
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify@v4/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/{{PACKAGE_NAME}}/lib/{{PACKAGE_NAME}}.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-shiki/lib/docsify-shiki.min.js"></script>
 ```
 
 ## 🔰 Usage
