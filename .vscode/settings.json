@@ -1,0 +1,5 @@
+{
+	"liveServer.settings.mount": [["/", "./lib"]],
+	"liveServer.settings.file": "lib/{{PACKAGE_NAME}}.js",
+	"liveServer.settings.NoBrowser": true
+}
