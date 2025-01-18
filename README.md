@@ -8,7 +8,7 @@
 [![jsDelivr](https://data.jsdelivr.com/v1/package/npm/docsify-shiki/badge)](https://www.jsdelivr.com/package/npm/docsify-shiki)
 [![npm version](https://badge.fury.io/js/docsify-shiki.svg)](https://badge.fury.io/js/docsify-shiki)
 [![License](https://img.shields.io/npm/l/docsify-shiki)](https://github.com/simochee/docsify-shiki/blob/main/LICENSE)
-[![Release](https://github.com/simochee/docsify-shikiy/actions/workflows/release.yaml/badge.svg)](https://github.com/simochee/docsify-shikiy/actions/workflows/release.yaml)
+[![Release](https://github.com/simochee/docsify-shiki/actions/workflows/release.yaml/badge.svg?branch=main)](https://github.com/simochee/docsify-shiki/actions/workflows/release.yaml)
 
 Replace syntax highlight with [Shiki](https://github.com/shikijs/shiki).
 

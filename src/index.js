@@ -1,20 +1,32 @@
 import { createHighlighterCoreSync } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
+import { overrideCss } from "./css";
 
 /** プラグインをインストール */
 const install = (hook, vm) => {
 	hook.init(() => {
+		const themes = vm.config?.shiki?.themes ?? [];
+		const langs = vm.config?.shiki?.langs ?? [];
 		const shiki = createHighlighterCoreSync({
-			themes: vm.config?.shiki?.themes,
-			langs: vm.config?.shiki?.langs,
+			themes,
+			langs,
 			engine: createJavaScriptRegexEngine(),
 		});
 
-		const theme = vm.config.shiki?.themes?.[0]?.name;
+		// themes の最初をデフォルトとして使う
+		// TODO: ユーザーがテーマを選択できるようにする
+		const theme = themes[0]?.name;
 
-		const codeRenderer = (code, lang) => {
+		/**
+		 * Shiki でコードブロックを描画する
+		 * @param {string} code コード
+		 * @param {string} lang 言語
+		 */
+		const shikiRenderer = (code, lang) => {
 			try {
 				const language = shiki.getLanguage(lang);
+				const name = language?.name ?? lang;
+				const displayName = language?._grammar.displayName ?? lang;
 
 				return shiki.codeToHtml(code, {
 					lang,
@@ -22,34 +34,49 @@ const install = (hook, vm) => {
 					transformers: [
 						{
 							code(node) {
-								this.addClassToHast(
-									node,
-									`lang-${language?._grammar.name ?? lang}`,
-								);
+								this.addClassToHast(node, `lang-${name}`);
 							},
 							pre(node) {
-								node.properties["data-lang"] =
-									language?._grammar.displayName ?? lang;
+								node.properties["data-lang"] = displayName;
 							},
 						},
 					],
 				});
 			} catch (err) {
 				console.warn("[shiki]", err);
-				return shiki.codeToHtml(code, {
-					lang: "text",
-					theme,
-					transformers: [
-						{
-							code(node) {
-								this.addClassToHast(node, "lang-text");
+
+				try {
+					// 言語が見つからない場合はハイライトなしで描画する
+					return shiki.codeToHtml(code, {
+						lang: "text",
+						theme,
+						transformers: [
+							{
+								code(node) {
+									this.addClassToHast(node, `lang-$${lang}`);
+								},
+								pre(node) {
+									node.properties["data-lang"] = lang;
+								},
 							},
-							pre(node) {
-								node.properties["data-lang"] = "Plain Text";
-							},
-						},
-					],
-				});
+						],
+					});
+				} catch (err) {
+					console.warn("[shiki]", err);
+
+					// さらにエラーになった場合はそのまま描画する
+					const $pre = document.createElement("pre");
+					const $code = document.createElement("code");
+
+					$pre.dataset.lang = lang;
+					$code.classList.add(`lang-${lang}`);
+
+					$code.textContent = code;
+
+					$pre.appendChild($code);
+
+					return $pre.outerHTML;
+				}
 			}
 		};
 
@@ -61,7 +88,7 @@ const install = (hook, vm) => {
 				extended.use({
 					renderer: {
 						code(content, lang) {
-							return codeRenderer(content, lang);
+							return shikiRenderer(content, lang);
 						},
 					},
 				});
@@ -69,28 +96,21 @@ const install = (hook, vm) => {
 				return extended;
 			};
 		} else {
-			const defaultCode = vm.config?.markdown?.renderer?.code;
+			const code = vm.config?.markdown?.renderer?.code;
 			vm.config.markdown ||= {};
 			vm.config.markdown.renderer ||= {};
 			vm.config.markdown.renderer.code = function (content, lang) {
-				this.origin.code = codeRenderer;
+				this.origin.code = (code, lang) => shikiRenderer(code, lang);
 
 				return (
-					defaultCode?.apply(this, [content, lang]) ??
-					this.origin.code(content, lang)
+					code?.apply(this, [content, lang]) ?? this.origin.code(content, lang)
 				);
 			};
 		}
 	});
 
 	hook.mounted(() => {
-		const style = document.createElement("style");
-		style.innerHTML = `
-			.markdown-section pre.shiki > code {
-				background: none;
-			}
-		`;
-		document.head.appendChild(style);
+		overrideCss();
 	});
 };
 
