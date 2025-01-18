@@ -11,7 +11,7 @@
 
 Replace syntax highlight with [Shiki](https://github.com/shikijs/shiki).
 
-## 📀 Installation
+## 📀 Setup
 
 Insert a script tag to load the plugin script file after loading the Docsify script.
 
@@ -20,14 +20,14 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
   window.$docsify = {};
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify@v4"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
+<!-- Themes -->
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/themes/nord.js"></script>
+<!-- Languages -->
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/javascript.js"></script>
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/markdown.js"></script>
+<!-- Plugin -->
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
 ```
-
-## 🔰 Usage
-
-No setup required. Language is automatically detected.
-
-All [Languages](https://shiki.style/languages) for all supported languages.
 
 ## 💻 Development
 
