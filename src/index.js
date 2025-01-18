@@ -14,19 +14,49 @@ const install = (hook, vm) => {
 
 		const codeRenderer = (code, lang) => {
 			try {
+				const language = shiki.getLanguage(lang);
+
 				return shiki.codeToHtml(code, {
 					lang,
 					theme,
+					transformers: [
+						{
+							code(node) {
+								this.addClassToHast(
+									node,
+									`lang-${language?._grammar.name ?? lang}`,
+								);
+							},
+							pre(node) {
+								node.properties["data-lang"] =
+									language?._grammar.displayName ?? lang;
+							},
+						},
+					],
 				});
-			} catch {
-				return code;
+			} catch (err) {
+				console.warn("[shiki]", err);
+				return shiki.codeToHtml(code, {
+					lang: "text",
+					theme,
+					transformers: [
+						{
+							code(node) {
+								this.addClassToHast(node, "lang-text");
+							},
+							pre(node) {
+								node.properties["data-lang"] = "Plain Text";
+							},
+						},
+					],
+				});
 			}
 		};
 
 		if (Docsify.util.isFn(vm.config.markdown)) {
 			const rawMarkdown = vm.config.markdown;
-			vm.config.markdown = (marked, renderer) => {
-				const extended = rawMarkdown?.(marked, renderer);
+			vm.config.markdown = function (marked, renderer) {
+				const extended = rawMarkdown?.apply(this, [marked, renderer]);
 
 				extended.use({
 					renderer: {
@@ -39,13 +69,16 @@ const install = (hook, vm) => {
 				return extended;
 			};
 		} else {
-			const codeRenderer = vm.config?.markdown?.renderer?.code;
+			const defaultCode = vm.config?.markdown?.renderer?.code;
 			vm.config.markdown ||= {};
 			vm.config.markdown.renderer ||= {};
-			vm.config.markdown.renderer.code = (content, lang) => {
-				const code = codeRenderer?.(content, lang) || content;
+			vm.config.markdown.renderer.code = function (content, lang) {
+				this.origin.code = codeRenderer;
 
-				return codeRenderer(code, lang);
+				return (
+					defaultCode?.apply(this, [content, lang]) ??
+					this.origin.code(content, lang)
+				);
 			};
 		}
 	});
