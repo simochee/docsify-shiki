@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - src/**/*
+      - themes/*
+      - langs/*
       - package.json
       - pnpm-lock.yaml
       - rollup.config.js
