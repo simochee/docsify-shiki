@@ -10,12 +10,13 @@ const install = (hook, vm) => {
 			engine: createJavaScriptRegexEngine(),
 		});
 
+		const theme = vm.config.shiki?.themes?.[0]?.name;
+
 		const codeRenderer = (code, lang) => {
 			try {
-				console.log($docsify.shiki.themes?.[0]?.[0]?.name);
 				return shiki.codeToHtml(code, {
 					lang,
-					theme: $docsify.shiki.themes?.[0]?.name,
+					theme,
 				});
 			} catch {
 				return code;
@@ -47,6 +48,16 @@ const install = (hook, vm) => {
 				return codeRenderer(code, lang);
 			};
 		}
+	});
+
+	hook.mounted(() => {
+		const style = document.createElement("style");
+		style.innerHTML = `
+			.markdown-section pre.shiki > code {
+				background: none;
+			}
+		`;
+		document.head.appendChild(style);
 	});
 };
 

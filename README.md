@@ -20,11 +20,11 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
   window.$docsify = {};
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify@v4"></script>
-<!-- Themes -->
+<!-- Themes https://shiki.matsu.io/themes -->
 <script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/themes/nord.js"></script>
-<!-- Languages -->
-<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/javascript.js"></script>
-<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/markdown.js"></script>
+<!-- Languages https://shiki.matsu.io/languages -->
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/js.js"></script>
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/md.js"></script>
 <!-- Plugin -->
 <script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
 ```

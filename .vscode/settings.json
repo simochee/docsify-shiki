@@ -1,5 +1,6 @@
 {
 	"liveServer.settings.mount": [["/", "./lib"]],
 	"liveServer.settings.file": "lib/docsify-shiki.js",
-	"liveServer.settings.NoBrowser": true
+	"liveServer.settings.NoBrowser": true,
+	"cSpell.words": ["shiki"]
 }
