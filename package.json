@@ -1,6 +1,6 @@
 {
 	"name": "docsify-shiki",
-	"description": "",
+	"description": "Replace syntax highlight with Shiki",
 	"keywords": [
 		"docsify",
 		"shiki"
@@ -24,6 +24,7 @@
 	],
 	"scripts": {
 		"build": "rollup -c",
+		"generate": "node ./scripts/generate.mjs",
 		"watch": "rollup -c -w"
 	},
 	"release": {

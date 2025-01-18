@@ -12,7 +12,11 @@ const install = (hook, vm) => {
 
 		const codeRenderer = (code, lang) => {
 			try {
-				return shiki.codeToHtml(code, { lang, theme: "nord" });
+				console.log($docsify.shiki.themes?.[0]?.[0]?.name);
+				return shiki.codeToHtml(code, {
+					lang,
+					theme: $docsify.shiki.themes?.[0]?.name,
+				});
 			} catch {
 				return code;
 			}
