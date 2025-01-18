@@ -53,7 +53,7 @@ const install = (hook, vm) => {
 						transformers: [
 							{
 								code(node) {
-									this.addClassToHast(node, `lang-$${lang}`);
+									this.addClassToHast(node, `lang-${lang}`);
 								},
 								pre(node) {
 									node.properties["data-lang"] = lang;
