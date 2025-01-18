@@ -1,12 +1,15 @@
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { defineConfig } from "rollup";
+import pkg from "./package.json" assert { type: "json" };
 
 export default defineConfig({
-	input: "src/index.js",
+	input: {
+		[pkg.name]: "src/index.js",
+	},
 	output: {
-		file: process.env.npm_package_main,
-		format: "umd",
+		dir: "lib",
+		format: "es",
 	},
 	plugins: [nodeResolve(), commonjs()],
 });

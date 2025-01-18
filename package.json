@@ -1,7 +1,10 @@
 {
 	"name": "docsify-shiki",
 	"description": "",
-	"keywords": ["docsify"],
+	"keywords": [
+		"docsify",
+		"shiki"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/simochee/docsify-shiki.git"
@@ -14,13 +17,22 @@
 	},
 	"type": "module",
 	"main": "lib/docsify-shiki.js",
-	"files": ["lib"],
+	"files": [
+		"lib",
+		"themes",
+		"langs"
+	],
 	"scripts": {
 		"build": "rollup -c",
 		"watch": "rollup -c -w"
 	},
 	"release": {
-		"branches": ["main"]
+		"branches": [
+			"main"
+		]
+	},
+	"dependencies": {
+		"shiki": "^1.27.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
@@ -28,6 +40,8 @@
 		"@commitlint/config-conventional": "^19.6.0",
 		"@rollup/plugin-commonjs": "^28.0.2",
 		"@rollup/plugin-node-resolve": "^16.0.0",
+		"@shikijs/langs": "^1.27.2",
+		"@shikijs/themes": "^1.27.2",
 		"lefthook": "^1.10.8",
 		"rollup": "^4.30.1",
 		"sort-package-json": "^2.14.0"
