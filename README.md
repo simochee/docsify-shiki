@@ -8,10 +8,11 @@
 [![jsDelivr](https://data.jsdelivr.com/v1/package/npm/docsify-shiki/badge)](https://www.jsdelivr.com/package/npm/docsify-shiki)
 [![npm version](https://badge.fury.io/js/docsify-shiki.svg)](https://badge.fury.io/js/docsify-shiki)
 [![License](https://img.shields.io/npm/l/docsify-shiki)](https://github.com/simochee/docsify-shiki/blob/main/LICENSE)
+[![Release](https://github.com/simochee/docsify-shikiy/actions/workflows/release.yaml/badge.svg)](https://github.com/simochee/docsify-shikiy/actions/workflows/release.yaml)
 
 Replace syntax highlight with [Shiki](https://github.com/shikijs/shiki).
 
-## 📀 Installation
+## 📀 Setup
 
 Insert a script tag to load the plugin script file after loading the Docsify script.
 
@@ -20,14 +21,14 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
   window.$docsify = {};
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify@v4"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
+<!-- Themes https://shiki.matsu.io/themes -->
+<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/themes/nord.js"></script>
+<!-- Languages https://shiki.matsu.io/languages -->
+<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/js.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/md.js"></script>
+<!-- Plugin -->
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
 ```
-
-## 🔰 Usage
-
-No setup required. Language is automatically detected.
-
-All [Languages](https://shiki.style/languages) for all supported languages.
 
 ## 💻 Development
 
@@ -39,7 +40,7 @@ All [Languages](https://shiki.style/languages) for all supported languages.
 1. Insert a script tag to load the plugin script file after loading the Docsify script.
 
 ```html
-<script src="http://localhost:5500"></script>
+<script type="module" src="http://localhost:5500"></script>
 ```
 
 ## 🛡️ License
