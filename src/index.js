@@ -8,8 +8,8 @@ const install = (hook, vm) => {
 		const themes = vm.config?.shiki?.themes ?? [];
 		const langs = vm.config?.shiki?.langs ?? [];
 		const shiki = createHighlighterCoreSync({
-			themes: [],
-			langs: [],
+			themes,
+			langs,
 			engine: createJavaScriptRegexEngine(),
 		});
 
