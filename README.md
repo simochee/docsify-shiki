@@ -5,10 +5,9 @@
 <h3 align="center">Shiki</h3>
 <p align="center">by <a href="https://github.com/simochee">simochee</a></p>
 
-[![jsDelivr](https://data.jsdelivr.com/v1/package/npm/docsify-shiki/badge)](https://www.jsdelivr.com/package/npm/docsify-shiki)
-[![npm version](https://badge.fury.io/js/docsify-shiki.svg)](https://badge.fury.io/js/docsify-shiki)
-[![License](https://img.shields.io/npm/l/docsify-shiki)](https://github.com/simochee/docsify-shiki/blob/main/LICENSE)
-[![Release](https://github.com/simochee/docsify-shiki/actions/workflows/release.yaml/badge.svg?branch=main)](https://github.com/simochee/docsify-shiki/actions/workflows/release.yaml)
+[![NPM Version](https://img.shields.io/npm/v/docsify-shiki?style=flat-square)](https://badge.fury.io/js/docsify-shiki)
+[![License](https://img.shields.io/npm/l/docsify-shiki?style=flat-square)](https://github.com/simochee/docsify-shiki/blob/main/LICENSE)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/simochee/docsify-shiki/release.yaml?style=flat-square)](https://github.com/simochee/docsify-shiki/actions/workflows/release.yaml)
 
 Replace syntax highlight with [Shiki](https://github.com/shikijs/shiki).
 
@@ -62,6 +61,20 @@ Specifies themes for each color schema.
 See [Light/Dark Dual Themes ](https://shiki.style/guide/dual-themes) for information on how multiple themes work.
 
 ```html
+<!-- Example: query-based dark theme -->
+<style>
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+}
+</style>
 <script type="module">
 import githubDark from 'https://esm.sh/@shikijs/themes@1/github-dark';
 import githubLight from 'https://esm.sh/@shikijs/themes@1/github-light';
