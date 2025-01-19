@@ -1,21 +1,54 @@
-import { createHighlighterCoreSync } from "shiki/core";
-import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
+import { createHighlighterCoreSync } from "https://esm.sh/shiki@1/core";
+import { createJavaScriptRegexEngine } from "https://esm.sh/shiki@1/engine/javascript";
 import { overrideCss } from "./css";
 
 /** プラグインをインストール */
 const install = (hook, vm) => {
 	hook.init(() => {
-		const themes = vm.config?.shiki?.themes ?? [];
-		const langs = vm.config?.shiki?.langs ?? [];
+		const configThemes =
+			(typeof vm.config?.shiki?.themes === "object" &&
+				vm.config.shiki.themes) ||
+			{};
+
+		/** @type {import('@shikijs/types').HighlighterCore} */
 		const shiki = createHighlighterCoreSync({
-			themes,
-			langs,
+			themes: [
+				// shiki.themes の値を配列に変換して追加
+				...Object.values(configThemes),
+				// shiki.theme で指定された値を追加
+				vm.config?.shiki?.theme,
+			],
+			langs: vm.config?.shiki?.langs ?? [],
 			engine: createJavaScriptRegexEngine(),
 		});
 
-		// themes の最初をデフォルトとして使う
-		// TODO: ユーザーがテーマを選択できるようにする
-		const theme = themes[0]?.name;
+		const getOptions = (lang, displayName = lang) => {
+			const options = {
+				theme: vm.config?.shiki?.theme?.name,
+				lang,
+				transformers: [
+					{
+						code(node) {
+							this.addClassToHast(node, `lang-${lang}`);
+						},
+						pre(node) {
+							node.properties["data-lang"] = displayName;
+						},
+					},
+				],
+			};
+
+			if (Object.keys(configThemes).length > 0) {
+				options.themes = Object.fromEntries(
+					Object.entries(configThemes).map(([key, theme]) => [
+						key,
+						theme?.name,
+					]),
+				);
+			}
+
+			return options;
+		};
 
 		/**
 		 * Shiki でコードブロックを描画する
@@ -28,39 +61,13 @@ const install = (hook, vm) => {
 				const name = language?.name ?? lang;
 				const displayName = language?._grammar.displayName ?? lang;
 
-				return shiki.codeToHtml(code, {
-					lang,
-					theme,
-					transformers: [
-						{
-							code(node) {
-								this.addClassToHast(node, `lang-${name}`);
-							},
-							pre(node) {
-								node.properties["data-lang"] = displayName;
-							},
-						},
-					],
-				});
+				return shiki.codeToHtml(code, getOptions(name, displayName));
 			} catch (err) {
 				console.warn("[shiki]", err);
 
 				try {
 					// 言語が見つからない場合はハイライトなしで描画する
-					return shiki.codeToHtml(code, {
-						lang: "text",
-						theme,
-						transformers: [
-							{
-								code(node) {
-									this.addClassToHast(node, `lang-${lang}`);
-								},
-								pre(node) {
-									node.properties["data-lang"] = lang;
-								},
-							},
-						],
-					});
+					return shiki.codeToHtml(code, getOptions("text", lang));
 				} catch (err) {
 					console.warn("[shiki]", err);
 

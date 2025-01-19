@@ -32,17 +32,14 @@
 			"main"
 		]
 	},
-	"dependencies": {
-		"shiki": "^1.27.2"
-	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@commitlint/cli": "^19.6.1",
 		"@commitlint/config-conventional": "^19.6.0",
 		"@rollup/plugin-commonjs": "^28.0.2",
 		"@rollup/plugin-node-resolve": "^16.0.0",
-		"@shikijs/langs": "^1.27.2",
-		"@shikijs/themes": "^1.27.2",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@shikijs/types": "^1.27.2",
 		"lefthook": "^1.10.8",
 		"rollup": "^4.30.1",
 		"sort-package-json": "^2.14.0"
