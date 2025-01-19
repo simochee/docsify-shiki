@@ -26,7 +26,7 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
 
   window.$docsify = {
     shiki: {
-      themes: [nord],
+      theme: nord,
       langs: [ts, vue],
     }
   };
@@ -37,7 +37,64 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
 
 ## 🔧 Configuration
 
+### theme
 
+Specifies the Shiki theme. Use `themes` to set themes for each color schema.
+
+```html
+<script type="module">
+import synthwave84 from 'https://esm.sh/@shikijs/themes@1/synthwave-84';
+
+window.$docsify = {
+  shiki: {
+    theme: synthwave84,
+  }
+}
+</script>
+```
+
+See [Shiki Document](https://shiki.style/themes) for available themes.
+
+### themes
+
+Specifies themes for each color schema.
+
+See [Light/Dark Dual Themes ](https://shiki.style/guide/dual-themes) for information on how multiple themes work.
+
+```html
+<script type="module">
+import githubDark from 'https://esm.sh/@shikijs/themes@1/github-dark';
+import githubLight from 'https://esm.sh/@shikijs/themes@1/github-light';
+
+window.$docsify = {
+  shiki: {
+    themes: {
+      dark: githubDark,
+      light: githubLight
+    }
+  }
+}
+</script>
+```
+
+### langs
+
+Specify the languages to use with Shiki.
+
+```html
+<script type="module">
+import js from 'https://esm.sh/@shikijs/langs@1/js';
+import md from 'https://esm.sh/@shikijs/langs@1/md';
+
+window.$docsify = {
+  shiki: {
+    langs: [js, md],
+  }
+}
+</script>
+```
+
+See [Shiki Document](https://shiki.style/languages) for available languages.
 
 ## 💻 Development
 
