@@ -32,9 +32,6 @@
 			"main"
 		]
 	},
-	"dependencies": {
-		"shiki": "^1.27.2"
-	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@commitlint/cli": "^19.6.1",

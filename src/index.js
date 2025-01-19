@@ -1,5 +1,5 @@
-import { createHighlighterCoreSync } from "shiki/core";
-import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
+import { createHighlighterCoreSync } from "https://esm.sh/shiki@1/core";
+import { createJavaScriptRegexEngine } from "https://esm.sh/shiki@1/engine/javascript";
 import { overrideCss } from "./css";
 
 /** プラグインをインストール */
@@ -8,7 +8,7 @@ const install = (hook, vm) => {
 		const themes = vm.config?.shiki?.themes ?? [];
 		const langs = vm.config?.shiki?.langs ?? [];
 		const shiki = createHighlighterCoreSync({
-			themes,
+			themes: [...themes, undefined],
 			langs,
 			engine: createJavaScriptRegexEngine(),
 		});
