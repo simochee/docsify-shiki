@@ -17,18 +17,27 @@ Replace syntax highlight with [Shiki](https://github.com/shikijs/shiki).
 Insert a script tag to load the plugin script file after loading the Docsify script.
 
 ```html
-<script>
-  window.$docsify = {};
+<!-- IMPORTANT: config must be defined as a module -->
+<script type="module">
+  // import themes and languages from esm.sh
+  import nord from 'https://esm.sh/@shikijs/themes@1/nord';
+  import ts from 'https://esm.sh/@shikijs/langs@1/ts';
+  import vue from 'https://esm.sh/@shikijs/langs@1/vue';
+
+  window.$docsify = {
+    shiki: {
+      themes: [nord],
+      langs: [ts, vue],
+    }
+  };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify@v4"></script>
-<!-- Themes https://shiki.matsu.io/themes -->
-<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/themes/nord.js"></script>
-<!-- Languages https://shiki.matsu.io/languages -->
-<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/js.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify-shiki@v1/langs/md.js"></script>
-<!-- Plugin -->
-<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
+<script type="module" src="//esm.sh/docsify-shiki@1"></script>
 ```
+
+## 🔧 Configuration
+
+
 
 ## 💻 Development
 
