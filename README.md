@@ -5,7 +5,8 @@
 <h3 align="center">Shiki</h3>
 <p align="center">by <a href="https://github.com/simochee">simochee</a></p>
 
-[![NPM Version](https://img.shields.io/npm/v/docsify-shiki?style=flat-square)](https://badge.fury.io/js/docsify-shiki)
+[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/npm/hw/docsify-shiki?style=flat-square)](https://www.jsdelivr.com/package/npm/docsify-shiki)
+[![NPM Version](https://img.shields.io/npm/v/docsify-shiki?style=flat-square)](https://www.npmjs.com/package/docsify-shiki)
 [![License](https://img.shields.io/npm/l/docsify-shiki?style=flat-square)](https://github.com/simochee/docsify-shiki/blob/main/LICENSE)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/simochee/docsify-shiki/release.yaml?style=flat-square)](https://github.com/simochee/docsify-shiki/actions/workflows/release.yaml)
 
@@ -31,7 +32,7 @@ Insert a script tag to load the plugin script file after loading the Docsify scr
   };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify@v4"></script>
-<script type="module" src="//esm.sh/docsify-shiki@1"></script>
+<script type="module" src="//cdn.jsdelivr.net/npm/docsify-shiki@v1"></script>
 ```
 
 ## 🔧 Configuration
